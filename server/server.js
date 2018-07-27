@@ -17,6 +17,7 @@ app.use(bodyParser.json());
 //endpts here 
 app.get('/api/inventory', pc.getInventory);
 app.post('/api/product', pc.addProduct);
+app.delete('/api/product/:id', pc.deleteProduct);
 
 app.listen(port, () => {
   console.log("Listening on port: ", port)

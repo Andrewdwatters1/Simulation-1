@@ -29,13 +29,14 @@ export default class Form extends Component {
     })
   }
 
-  clearInputs = () => {
+  clearInputs = (e) => {
     this.setState({
-      name: "",
+      name: '',
       price: 0,
-      imgurl: "",
+      imgurl: '',
     })
-  }
+    console.log(this.state);
+    }
 
   createProduct = () => {
     let obj = {
@@ -44,12 +45,13 @@ export default class Form extends Component {
       img: this.state.imgurl,
     }
     axios.post('/api/product', obj)
-    .then(result => {
+    .then(() => {
       this.props.getInventory();
       this.clearInputs();
     })
     .catch(error => {
-      console.log('axios POST call, originates from Form.js: ', error)
+      console.log('axios POST call, originates from Form.js: ', error);
+      this.clearInputs();
     })
   }
 
@@ -62,8 +64,10 @@ export default class Form extends Component {
         <input onChange={this.handleChangeName}/>
         Price:
         <input onChange={this.handleChangePrice} type="number"/>
-        <button onClick={this.clearInputs}>Cancel</button>
-        <button onClick={this.createProduct}>Add to Inventory</button>
+        <form>
+          <button onClick={this.clearInputs}>Cancel</button>
+          <button onClick={this.createProduct}>Add to Inventory</button>
+        </form>
       </div>
     )
   }

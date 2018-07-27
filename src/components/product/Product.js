@@ -9,6 +9,11 @@ const Product = function(props) {
       <div className="product-name-price-container">
         {props.productName} ---------- {props.productPrice}
       </div>
+      <div>
+        <button onClick={props.deleteItem}>Delete</button>
+        <button>Edit</button>
+        {console.log(props)}
+      </div>
     </div>
   )
 }
