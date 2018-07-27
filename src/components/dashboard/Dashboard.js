@@ -4,24 +4,27 @@ import Product from './../product/Product'
 export default class Dashboard extends Component {
   constructor() {
     super()
-
   }
 
   render() {
-    var inventoryItem = this.props.fullInventory.map((e, i) => {
+    if(this.props.fullInventory.length>0) {
+      var inventoryItem = this.props.fullInventory.map((e, i) => {
+        return (
+        <Product 
+          id={i+1}
+          productName={e.name} 
+          productPrice={e.price} 
+          productImg={e.img}/>
+        )
+      })
       return (
-      <Product 
-        id={i+1}
-        productName={e.name} 
-        productPrice={e.price} 
-        productImg={e.img}/>
+        <div>
+          {inventoryItem}
+          {console.log('dashboard props contains', this.props)}
+        </div>
       )
-    })
-    return (
-      <div>
-        {inventoryItem}
-        {console.log('dashboard props', this.props)}
-      </div>
-    )
+    } else {
+      return (null)
+    }
   }
 }

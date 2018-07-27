@@ -4,32 +4,31 @@ import './App.css';
 import Header from './components/header/Header'
 import Dashboard from './components/dashboard/Dashboard'
 import Form from './components/form/Form'
+import axios from 'axios';
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
-      inventory: [{
-        name: "hat",
-        price: 10,
-        img: "none"
-      }, {
-        name: "shirt",
-        price: 15,
-        img: "none"
-      }, {
-        name: "mug",
-        price: 8,
-        img: "none"
-      }, 
-    ],
-      actualInventory: "connect to DB",
+      inventory: [],
     }
   }
 
-  // getInventory = () => {
-  //   // does something 
-  // }
+  componentDidMount = () => {
+    this.getInventory();
+  }
+
+  getInventory = () => {
+    axios.get('/api/inventory')
+    .then(result => {
+      this.setState({
+        inventory: result.data
+      })
+    })
+    .catch(error => {
+        console.log('axios GET call, originates from App.js error: ', error)
+    })
+  }
 
   render() {
     return (
