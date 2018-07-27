@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 
 //endpts here 
 app.get('/api/inventory', pc.getInventory);
-// app.post('/api/product', pc.method);
+app.post('/api/product', pc.addProduct);
 
 app.listen(port, () => {
   console.log("Listening on port: ", port)

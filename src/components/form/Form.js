@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 export default class Form extends Component {
   constructor() {
@@ -28,7 +29,7 @@ export default class Form extends Component {
     })
   }
 
-  handleCancel = () => {
+  clearInputs = () => {
     this.setState({
       name: "",
       price: 0,
@@ -36,10 +37,21 @@ export default class Form extends Component {
     })
   }
 
-  addToInventory = () => {
-    console.log('addToInventory method not written') 
+  createProduct = () => {
+    let obj = {
+      name: this.state.name,
+      price: this.state.price,
+      img: this.state.imgurl,
+    }
+    axios.post('/api/product', obj)
+    .then(result => {
+      this.props.getInventory();
+      this.clearInputs();
+    })
+    .catch(error => {
+      console.log('axios POST call, originates from Form.js: ', error)
+    })
   }
-
 
   render() {
     return (
@@ -50,8 +62,8 @@ export default class Form extends Component {
         <input onChange={this.handleChangeName}/>
         Price:
         <input onChange={this.handleChangePrice} type="number"/>
-        <button onClick={this.handleCancel}>Cancel</button>
-        <button onClick={this.addToInventory}>Add to Inventory</button>
+        <button onClick={this.clearInputs}>Cancel</button>
+        <button onClick={this.createProduct}>Add to Inventory</button>
       </div>
     )
   }

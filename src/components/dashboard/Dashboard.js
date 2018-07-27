@@ -20,7 +20,6 @@ export default class Dashboard extends Component {
       return (
         <div>
           {inventoryItem}
-          {console.log('dashboard props contains', this.props)}
         </div>
       )
     } else {
